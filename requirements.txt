@@ -4,4 +4,4 @@ audio_recorder_streamlit
 streamlit_float
 dotenv
 python-dotenv
-pep517
+
