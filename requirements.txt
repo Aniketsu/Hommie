@@ -2,6 +2,4 @@ streamlit
 openai
 audio_recorder_streamlit
 streamlit_float
-dotenv
-python-dotenv
 
