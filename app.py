@@ -1,5 +1,6 @@
 import streamlit as st
 import os
+import keyboard
 from utils import get_answer, text_to_speech, autoplay_audio, speech_to_text
 from audio_recorder_streamlit import audio_recorder
 from streamlit_float import *
@@ -18,21 +19,38 @@ def initialize_session_state():
 initialize_session_state()
 
 st.title("HOMMIE 🤖")
-
+audio_bytes_list = []
 # Create footer container for the microphone
 footer_container = st.container()
+
+# Use st.columns to create a row with 5 columns
 with footer_container:
-    audio_bytes = audio_recorder()
+    cols = st.columns(5)
+
+    # Loop through and create recorders in each column
+    for i in range(5):
+        with cols[i]:
+            audio_bytes = audio_recorder(
+                text="",
+                recording_color="#e8b62c",
+                neutral_color="#e543f7",
+                icon_name="fa-solid fa-grip-lines",
+                icon_size="9x",
+                sample_rate=41_000,
+                key=f"custom_{i}"
+            )
+            audio_bytes_list.append(audio_bytes)
 
 
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.write(message["content"])
 
-if audio_bytes:
+for i, audio_bytes in enumerate(audio_bytes_list):
+    if audio_bytes:
     # Write the audio bytes to a file
-    with st.spinner("Transcribing..."):
-        webm_file_path = "temp_audio.mp3"
+        with st.spinner("Transcribing..."):
+            webm_file_path = "temp_audio.mp3"
         with open(webm_file_path, "wb") as f:
             f.write(audio_bytes)
 
