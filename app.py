@@ -1,5 +1,6 @@
 import streamlit as st
 import os
+import keyboard
 from utils import get_answer, text_to_speech, autoplay_audio, speech_to_text
 from audio_recorder_streamlit import audio_recorder
 from streamlit_float import *
@@ -18,28 +19,27 @@ def initialize_session_state():
 initialize_session_state()
 
 st.title("HOMMIE 🤖")
+
+# Create footer container for the microphone
 footer_container = st.container()
 with footer_container:
-            audio_bytes = audio_recorder(
-                text="",
-                recording_color="#e8b62c",
-                neutral_color="#e543f7",
-                icon_name="fa-solid fa-grip-lines",
-                icon_size="10x",
-                sample_rate=41_000,
-                key="custom"
-            )
-
+    audio_bytes = audio_recorder( text="",
+        recording_color="#e8b62c",
+        neutral_color="#6aa36f",
+        icon_name="fa-solid fa-grip-lines",
+        icon_size="10x",
+        sample_rate=41_000,
+        key="custom")
 
 
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.write(message["content"])
 
-    if audio_bytes:
+if audio_bytes:
     # Write the audio bytes to a file
-        with st.spinner("Transcribing..."):
-            webm_file_path = "temp_audio.mp3"
+    with st.spinner("Transcribing..."):
+        webm_file_path = "temp_audio.mp3"
         with open(webm_file_path, "wb") as f:
             f.write(audio_bytes)
 
@@ -62,4 +62,4 @@ if st.session_state.messages[-1]["role"] != "assistant":
         os.remove(audio_file)
 
 # Float the footer container and provide CSS to target it with
-footer_container.float("bottom: 0rem;")
+footer_container.float("bottom: 0rem;" )
