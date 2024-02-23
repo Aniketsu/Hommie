@@ -36,7 +36,6 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.write(message["content"])
 
-for i, audio_bytes in enumerate(audio_bytes_list):
     if audio_bytes:
     # Write the audio bytes to a file
         with st.spinner("Transcribing..."):
