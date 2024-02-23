@@ -25,7 +25,7 @@ with footer_container:
     audio_bytes = audio_recorder( text="",
         recording_color="#e8b62c",
         neutral_color="#6aa36f",
-        icon_name="fa-solid fa-grip-lines",
+        icon_name="fa-solid fa-microphone",
         icon_size="10x",
         sample_rate=41_000,
         key="custom")
