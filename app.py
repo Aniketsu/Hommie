@@ -18,27 +18,18 @@ def initialize_session_state():
 initialize_session_state()
 
 st.title("HOMMIE 🤖")
-audio_bytes_list = []
-# Create footer container for the microphone
 footer_container = st.container()
-
-# Use st.columns to create a row with 5 columns
 with footer_container:
-    cols = st.columns(5)
-
-    # Loop through and create recorders in each column
-    for i in range(5):
-        with cols[i]:
             audio_bytes = audio_recorder(
                 text="",
                 recording_color="#e8b62c",
                 neutral_color="#e543f7",
                 icon_name="fa-solid fa-grip-lines",
-                icon_size="9x",
+                icon_size="10x",
                 sample_rate=41_000,
-                key=f"custom_{i}"
+                key="custom"
             )
-            audio_bytes_list.append(audio_bytes)
+
 
 
 for message in st.session_state.messages:
